@@ -15,7 +15,6 @@ public class PlayerTopDownMovement : MonoBehaviour
 
     void Update()
     {
-        // Get input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -29,7 +28,6 @@ public class PlayerTopDownMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Apply movement
         rb.velocity = movement * moveSpeed;
     }
 

@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
+        // Shoots at mouse point, gets destroyed once it reaches said point
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
         if (HasPassedTarget())
         {

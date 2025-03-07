@@ -14,7 +14,8 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        //override by SideMove and TopMove scripts
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour
         }
         else if (goopCount > 0 && gooped == true)
         {
+            //Gooped is a one time bool for now, just ensures that the coroutine doesn't stack. Will be more important when goop retrieval is implemented.
             gooped = false;
             StartCoroutine(DamageOverTime());
         }
@@ -33,12 +35,13 @@ public class Enemy : MonoBehaviour
 
     protected virtual void MoveTowardsPlayer()
     {
+        //override by SideMove and TopMove scripts
         if (player == null) return;
-        // Will be overridden in subclasses for custom movement logic
     }
 
     IEnumerator DamageOverTime()
     {
+        //Damage per Second, sets goop true if count is 0, currently never reaches that point, will only happen once goop retrieval is implemented.
         while (goopCount > 0)
         {
             health -= damagePerSecond;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySideMove : Enemy
 {
+    //Extends Enemy.cs, for non-movement code check there
     protected override void Start()
     {
         base.Start();
