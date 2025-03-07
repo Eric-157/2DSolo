@@ -1,9 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     public int health = 10;
-    public static float damagePerSecond = 0f; // Shared across all enemies
+
+    private int damagePerSecond = 0;
+    private float goopCount = 0;
+    private bool gooped = true;
 
     protected Transform player;
     public float speed = 2f;
@@ -16,6 +20,15 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         MoveTowardsPlayer();
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else if (goopCount > 0 && gooped == true)
+        {
+            gooped = false;
+            StartCoroutine(DamageOverTime());
+        }
     }
 
     protected virtual void MoveTowardsPlayer()
@@ -24,22 +37,21 @@ public class Enemy : MonoBehaviour
         // Will be overridden in subclasses for custom movement logic
     }
 
-    public void TakeDamage(int damage)
+    IEnumerator DamageOverTime()
     {
-        health -= damage;
-        damagePerSecond += damage;
-
-        if (health <= 0)
+        while (goopCount > 0)
         {
-            Destroy(gameObject);
+            health -= damagePerSecond;
+            yield return new WaitForSeconds(1.0f);
         }
+        gooped = true;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Projectile"))
+        if (collision.gameObject.CompareTag("Projectile"))
         {
-            TakeDamage(1);
+            damagePerSecond += 1;
+            goopCount++;
             Destroy(collision.gameObject);
         }
     }
