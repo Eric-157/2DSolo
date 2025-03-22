@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerSideMovement : MonoBehaviour
@@ -86,11 +87,19 @@ public class PlayerSideMovement : MonoBehaviour
     private void ToggleLayers()
     {
         isForegroundActive = !isForegroundActive;
-        foreach (Collider2D col in backgroundParent.GetComponentsInChildren<Collider2D>())
+        foreach (Collider2D col in backgroundParent.GetComponentsInChildren<TilemapCollider2D>())
         {
             col.enabled = !isForegroundActive;
         }
-        foreach (Collider2D col in foregroundParent.GetComponentsInChildren<Collider2D>())
+        foreach (Collider2D col in foregroundParent.GetComponentsInChildren<TilemapCollider2D>())
+        {
+            col.enabled = isForegroundActive;
+        }
+        foreach (Collider2D col in backgroundParent.GetComponentsInChildren<BoxCollider2D>())
+        {
+            col.enabled = !isForegroundActive;
+        }
+        foreach (Collider2D col in foregroundParent.GetComponentsInChildren<BoxCollider2D>())
         {
             col.enabled = isForegroundActive;
         }
