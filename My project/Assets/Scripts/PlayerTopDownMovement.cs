@@ -14,18 +14,20 @@ public class PlayerTopDownMovement : MonoBehaviour
     {
         GameObject[] system = GameObject.FindGameObjectsWithTag("System");
         interiorManager = system[0].GetComponent<InteriorManager>();
-        if(interiorManager.saveData.playerData.interior){
+        if (interiorManager.saveData.playerData.interior)
+        {
             interiorManager.saveData.playerData.interior = false;
         }
         interiorManager.saveData.SaveToJson();
- 
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if(!interiorManager.interior){
+        if (!interiorManager.interior)
+        {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
 
@@ -35,11 +37,13 @@ public class PlayerTopDownMovement : MonoBehaviour
             {
                 ShootProjectile();
             }
-            if(!spriteRenderer.enabled){
+            if (!spriteRenderer.enabled)
+            {
                 spriteRenderer.enabled = true;
             }
         }
-        else{
+        else
+        {
             spriteRenderer.enabled = false;
         }
     }
