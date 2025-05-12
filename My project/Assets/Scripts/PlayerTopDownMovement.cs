@@ -7,22 +7,40 @@ public class PlayerTopDownMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     public GameObject projectilePrefab;
+    private InteriorManager interiorManager;
+    public SpriteRenderer spriteRenderer;
 
     void Start()
     {
+        GameObject[] system = GameObject.FindGameObjectsWithTag("System");
+        interiorManager = system[0].GetComponent<InteriorManager>();
+        if(interiorManager.saveData.playerData.interior){
+            interiorManager.saveData.playerData.interior = false;
+        }
+        interiorManager.saveData.SaveToJson();
+ 
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if(!interiorManager.interior){
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        // Normalize to prevent diagonal speed boost
-        movement = movement.normalized;
-        if (Input.GetMouseButtonDown(0))
-        {
-            ShootProjectile();
+            // Normalize to prevent diagonal speed boost
+            movement = movement.normalized;
+            if (Input.GetMouseButtonDown(0))
+            {
+                ShootProjectile();
+            }
+            if(!spriteRenderer.enabled){
+                spriteRenderer.enabled = true;
+            }
+        }
+        else{
+            spriteRenderer.enabled = false;
         }
     }
 
