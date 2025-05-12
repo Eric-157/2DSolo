@@ -14736,8 +14736,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  rb: {fileID: 1259721711}
   projectilePrefab: {fileID: 3977484166505162707, guid: 7ece2ff992547da4db929f4f65129dc1, type: 3}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 1259721713}
 --- !u!60 &1259721716
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -51,6 +51,10 @@ public class PlayerSideMovement : MonoBehaviour
         {
             ShootProjectile();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

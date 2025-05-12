@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerTopDownMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private Vector2 movement;
     public GameObject projectilePrefab;
     private InteriorManager interiorManager;
@@ -28,6 +28,7 @@ public class PlayerTopDownMovement : MonoBehaviour
     {
         if (!interiorManager.interior)
         {
+            rb.simulated = true;
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
 
@@ -41,10 +42,15 @@ public class PlayerTopDownMovement : MonoBehaviour
             {
                 spriteRenderer.enabled = true;
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
         }
         else
         {
             spriteRenderer.enabled = false;
+            rb.simulated = false;
         }
     }
 
